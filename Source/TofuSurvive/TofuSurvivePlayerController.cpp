@@ -31,6 +31,7 @@ void ATofuSurvivePlayerController::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+	UE_LOG(LogTemplateCharacter, Warning, TEXT("ATofuSurvivePlayerController::BeginPlay"));
 
 	// Add Input Mapping Context
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
@@ -53,9 +54,9 @@ void ATofuSurvivePlayerController::SetupInputComponent()
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
 	{
 		//Move
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Started, this, &ATofuSurvivePlayerController::OnMove);
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATofuSurvivePlayerController::OnMove);
 		//Skill
-		EnhancedInputComponent->BindAction(SkillAction, ETriggerEvent::Triggered, this, &ATofuSurvivePlayerController::OnSkill);
+		EnhancedInputComponent->BindAction(SkillAction, ETriggerEvent::Started, this, &ATofuSurvivePlayerController::OnSkill);
 	}
 	else
 	{
@@ -85,6 +86,8 @@ void ATofuSurvivePlayerController::SetupInputComponent()
 void ATofuSurvivePlayerController::OnMove(const FInputActionValue &Value)
 {
 	FVector2D MoveValue = Value.Get<FVector2D>();
+	UE_LOG(LogTemplateCharacter, Log, TEXT("Move Triggered X: %f"), MoveValue.X);
+	UE_LOG(LogTemplateCharacter, Log, TEXT("Move Triggered Y: %f"), MoveValue.Y);
 
 	if (APawn* ControlledPawn = GetPawn())
 	{
@@ -95,8 +98,11 @@ void ATofuSurvivePlayerController::OnMove(const FInputActionValue &Value)
 
 void ATofuSurvivePlayerController::OnSkill(const FInputActionValue &Value)
 {
+	UE_LOG(LogTemplateCharacter, Log, TEXT("Skill 쿨타임"));
+
 	if (bSkillReady)
-	{	UE_LOG(LogTemplateCharacter, Log, TEXT("Skill 사용"));
+	{
+		UE_LOG(LogTemplateCharacter, Log, TEXT("Skill 사용"));
 		bSkillReady = false;
 		SkillCooldownTimer = 5.f;
 	}

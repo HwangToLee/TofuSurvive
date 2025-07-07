@@ -13,6 +13,8 @@
 
 ATofuSurviveCharacter::ATofuSurviveCharacter()
 {
+	UE_LOG(LogTemp, Warning, TEXT("ATofuSurviveCharacter Constructor!!"));
+
 	// Set size for player capsule
 	// GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 	GetCapsuleComponent()->SetHiddenInGame(true);
@@ -59,4 +61,10 @@ ATofuSurviveCharacter::ATofuSurviveCharacter()
 void ATofuSurviveCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+}
+
+void ATofuSurviveCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("ATofuSurviveCharacter BeginPlay!"));
 }
