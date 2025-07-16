@@ -18,17 +18,7 @@ ATofuSurviveCharacter::ATofuSurviveCharacter()
 	// Set size for player capsule
 	// GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 	GetCapsuleComponent()->SetHiddenInGame(true);
-
-	UStaticMeshComponent* CubeMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CubeMesh"));
-	CubeMesh->SetupAttachment(RootComponent);
-
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> CubeMeshAsset(TEXT("/Engine/BasicShapes/Cube.Cube"));
-	if (CubeMeshAsset.Succeeded())
-	{
-		CubeMesh->SetStaticMesh(CubeMeshAsset.Object);
-		CubeMesh->SetRelativeLocation(FVector(0.0f, 0.0f, -40.0f));
-		CubeMesh->SetWorldScale3D(FVector(1.0f, 1.0f, 1.0f));
-	}
+	
 	// // Don't rotate character to camera direction
 	// bUseControllerRotationPitch = false;
 	// bUseControllerRotationYaw = false;
